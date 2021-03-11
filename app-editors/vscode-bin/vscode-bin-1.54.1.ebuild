@@ -14,28 +14,38 @@ RESTRICT="mirror strip bindist"
 
 LICENSE="MS-vscode"
 SLOT="0"
-KEYWORDS="~amd64"
+KEYWORDS="-* ~amd64"
 
-DEPEND=""
+DEPEND="
+	>=media-libs/libpng-1.2.46
+	>=x11-libs/gtk+-2.24.8-r1:2
+	x11-libs/cairo
+	x11-libs/libXtst
+	!app-editors/vscode
+"
 
-RDEPEND="${DEPEND}"
+RDEPEND="
+	${DEPEND}
+	app-accessibility/at-spi2-atk
+	>=net-print/cups-2.0.0
+	x11-libs/libnotify
+	x11-libs/libXScrnSaver
+	dev-libs/nss
+	app-crypt/libsecret[crypt]
+"
 
-QA_PRESTRIPPED="opt/${PN}/code"
+QA_PRESTRIPPED="*"
 QA_PREBUILT="opt/${PN}/code"
 
-pkg_setup(){
-	use amd64 && S="${WORKDIR}/VSCode-linux-x64"
-}
+S="${WORKDIR}"
 
 src_install(){
-	local dir="/opt/${PN}"
-
-	insinto "${dir}"
+	insinto "/opt/${PN}"
 	doins -r *
-	fperms 755 "${dir}"/bin/code
-	fperms 755 "${dir}"/code
+	fperms +x "/opt/${PN}/bin/code"
+	fperms +x "/opt/${PN}/code"
+	dosym "../../opt/${PN}/bin/code" "usr/bin/code"
 
-	make_wrapper "${PN}" "${dir}/bin/code"
 	newicon "resources/app/resources/linux/code.png" "${PN}.png"
 	make_desktop_entry "${PN}" "Visual Studio Code" "${PN}" "Development;IDE"
 }

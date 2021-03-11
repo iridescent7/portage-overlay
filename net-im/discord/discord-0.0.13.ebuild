@@ -10,12 +10,13 @@ inherit desktop pax-utils unpacker xdg-utils
 
 DESCRIPTION="All-in-one voice and text chat for gamers"
 HOMEPAGE="https://discordapp.com"
+
 SRC_URI="https://dl.discordapp.net/apps/linux/${PV}/${MY_PN}-${PV}.deb"
+RESTRICT="mirror bindist"
 
 LICENSE="all-rights-reserved"
 SLOT="0"
 KEYWORDS="~amd64"
-RESTRICT="mirror bindist"
 
 RDEPEND="
 	app-accessibility/at-spi2-atk:2
