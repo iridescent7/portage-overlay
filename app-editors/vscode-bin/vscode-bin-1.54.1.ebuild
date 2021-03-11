@@ -37,7 +37,7 @@ RDEPEND="
 QA_PRESTRIPPED="*"
 QA_PREBUILT="opt/${PN}/code"
 
-S="${WORKDIR}"
+S="${WORKDIR}/VSCode-linux-x64"
 
 src_install(){
 	insinto "/opt/${PN}"
